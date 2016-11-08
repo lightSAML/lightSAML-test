@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ path('entity.list') }}" class="btn btn-primary pull-right mt-10"><i class="fa fa-list"></i> Entities</a>
+
+        <h1>Received SAML AuthnRequest summary</h1>
+
+        <p>Issuer: {{ authnRequest.issuer.value }}</p>
+        <p>
+            Signature:
+            {% if authnRequest.signature %}
+                <i class="fa fa-check text-success"></i>
+            {% else %}
+                <i class="fa fa-times text-danger"></i>
+            {% endif %}
+        </p>
+        <p>Relay state: {{ authnRequest.relayState }}</p>
+        <div class="text-right">
+            <a href="{{ path('saml.send_response', {spEntityId: spEntityId}) }}" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Send SAML Response</a>
+        </div>
+
+        <h1>Details & Raw data</h1>
+
+        <h2>Received Message</h2>
+        <textarea style="width: 99%; height: 400px">{{ receivedXML|raw }}</textarea>
+
+    </div>
+</div>
+
+{% endblock %}

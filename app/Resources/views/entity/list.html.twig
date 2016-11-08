@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Welcome to LightSAML Test</h1>
+
+            <p>Your registered entities:</p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>EntityID</th>
+                    <th></th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for id, ed in entities %}
+                    {% set hasIdpSso = false %}
+                    {% for item in ed.allIdpSsoDescriptors %}
+                        {% for sso in item.allSingleSignOnServices %}
+                            {% set hasIdpSso = true %}
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% set hasSpSso = false %}
+                    {% for item in ed.allSpSsoDescriptors %}
+                        {% for acs in item.allAssertionConsumerServices %}
+                            {% set hasSpSso = true %}
+                        {% endfor %}
+                    {% endfor %}
+                    <tr>
+                        <td><a href="{{ path('entity.view', {entityId: ed.entityId}) }}">{{ ed.entityId }}</a></td>
+                        <td>
+                            {% if hasIdpSso %} <span class="badge" title="Identity Provider">IDP</span> {% endif %}
+                            {% if hasSpSso %} <span class="badge" title="Service Provider">SP</span> {% endif %}
+                        </td>
+                        <td>
+
+                            {% if hasIdpSso %}
+                                <a href="{{ path('saml.send_authn_request', {idpEntityId: ed.entityId}) }}" class="btn btn-primary btn-sm" title="Send AuthnRequest to IDP SSO">
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
+                            {% if hasSpSso %}
+                                <a href="{{ path('saml.send_response', {spEntityId: ed.entityId}) }}" class="btn btn-primary btn-sm" title="IDP initiated SSO">
+                                    <i class="fa fa-play" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{{ path('saml.metadata') }}" class="btn btn-info pull-right" target="_blank">Own Metadata XML</a>
+
+            <a href="{{ path('entity.new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new</a>
+
+        </div>
+    </div>
+{% endblock %}
+

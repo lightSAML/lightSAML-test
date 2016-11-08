@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ path('entity.list') }}" class="btn btn-primary pull-right mt-10"><i class="fa fa-list"></i> Entities</a>
+
+        <h1>Send SAML Response</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> SEND</button>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+</div>
+
+<div id="claimsModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Claims</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Friendly name</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for name, friendlyName in claims %}
+                        <tr>
+                            <td><a href="#" data-id="claim" data-name="{{ name }}" data-friendly-name="{{ friendlyName }}">{{ friendlyName }}</a></td>
+                            <td>{{ name }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(function () {
+            var selectedIndex = -1;
+
+            $('#form_attributes div.saml-attributes').each(function () {
+                var index = this.id.match(/[0-9]+/)[0];
+                console.log(index);
+                var $this = $(this);
+                var $btn = $('<a href="#" class="mr-10" data-id="'+index+'"><i class="fa fa-search"></i></a>');
+                $btn.on('click', function (e) {
+                    selectedIndex = index;
+                    e.preventDefault();
+                    $('#claimsModal').modal('show');
+                });
+                $this.prepend($btn);
+            });
+
+            $('[data-id="claim"]').on('click', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var name = $this.data('name');
+                var friendlyName = $this.data('friendlyName');
+
+                $('#form_attributes_'+selectedIndex+'_friendlyName').val(friendlyName);
+                $('#form_attributes_'+selectedIndex+'_name').val(name);
+                $('#claimsModal').modal('hide');
+                selectedIndex = -1;
+            });
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "tools/_tools_base.html.twig" %}
+
+{% block content %}
+    <h1>Validate SAML XML with XSD schema</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="clearfix"></div>
+    <button type="submit" class="btn btn-primary btn-lg mt-30"><i class="fa fa-cogs" aria-hidden="true"></i> Validate</button>
+    {{ form_end(form) }}
+
+    <div class="clearfix mt-20"></div>
+
+    {% if validationExecuted %}
+        {% if validationResult|length == 0 %}
+            <div class="alert alert-success">
+                XML is valid
+            </div>
+        {% else %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for error in validationResult %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

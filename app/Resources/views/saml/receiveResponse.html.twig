@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ path('entity.list') }}" class="btn btn-primary pull-right mt-10"><i class="fa fa-list"></i> Entities</a>
+
+
+        <h1>Received SAML Response summary</h1>
+
+        <p>
+            Status:
+            {% if samlResponse.status.statusCode.value == 'urn:oasis:names:tc:SAML:2.0:status:Success' %}
+                <i class="fa fa-check text-success" title="Success"></i>
+            {% else %}
+                <i class="fa fa-times text-danger" title="Error"></i>
+            {% endif %}
+            {{ samlResponse.status.statusCode.value }}
+            {{ samlResponse.status.statusMessage }}
+        </p>
+        <p>
+            Issuer: {{ samlResponse.issuer.value }}
+            <a href="{{ path('entity.view', {entityId: samlResponse.issuer.value}) }}" title="View party details"><i class="fa fa-eye"></i></a>
+        </p>
+        <p>
+            Relay state:
+            {% if expectedRelayState == samlResponse.relayState %}
+                <i class="fa fa-check text-success" title="As expected"></i> {{ samlResponse.relayState }}
+            {% else %}
+                <i class="fa fa-times text-danger"></i> <br/>
+                Expected: {{ expectedRelayState }}<br/>
+                Actual: {{ samlResponse.relayState }}
+            {% endif %}
+        </p>
+        <p>
+            Signatures:<br/>
+            {% set responseSigned = false %}
+            {% if samlResponse.signature %}
+                <i class="fa fa-check text-success"></i> response <br/>
+                {% set responseSigned = true %}
+            {% endif %}
+
+            {% set assertionSigned = false %}
+            {% if samlResponse.allAssertions %}
+                {% for assertion in samlResponse.allAssertions %}
+                    {% if assertion.signature %}
+                        {% set assertionSigned = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if assertionSigned %}<i class="fa fa-check text-success"></i> assertion <br/>{% endif %}
+
+            {% if not responseSigned and not assertionSigned %}
+                <i class="fa fa-times text-danger"></i> NOT SIGNED <br/>
+            {% endif %}
+        </p>
+
+        <p>
+            {% set allAssertionsCount = samlResponse.allAssertions|length %}
+            {% set encryptedAssertionsCount = samlResponse.allEncryptedAssertions|length %}
+            Total assertions: {{ allAssertionsCount }}
+            {% if allAssertionsCount < 1 %}<i class="fa fa-times text-danger"></i>{% endif %}
+            <br/>
+            Encrypted assertions: {{ encryptedAssertionsCount }}
+            {% if encryptedAssertionsCount < allAssertionsCount %}
+                <i class="fa fa-times text-danger"></i>
+            {% elseif encryptedAssertionsCount > 0 %}
+                <i class="fa fa-check text-success"></i>
+            {% endif %}
+        </p>
+
+        {% if samlResponse.allAssertions %}
+            <h2>Assertions</h2>
+            {% for assertion in samlResponse.allAssertions %}
+                <p>Issuer: {{ assertion.issuer.value }}</p>
+                {% if assertion.subject and assertion.subject.nameID %}
+                    <p>NameID: {{ assertion.subject.nameID.value }} &nbsp; {{ assertion.subject.nameID.format }}</p>
+                {% endif %}
+                {% if assertion.conditions and assertion.conditions.getNotOnOrAfterString() %}
+                    <p>Not on or after: {{ assertion.conditions.getNotOnOrAfterString() }}</p>
+                {% endif %}
+                {% if assertion.getAllAttributeStatements() %}
+                    <h4>Attributes</h4>
+                    {% for attributeStatement in assertion.getAllAttributeStatements() %}
+                        <ul>
+                        {% for attribute in attributeStatement.allAttributes %}
+                            <li>
+                                Friendly name: {{ attribute.friendlyName }}<br/>
+                                Name: {{ attribute.name }}<br/>
+                                Value(s): {{ attribute.getAllAttributeValues()|join(', ') }}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% endfor %}
+                {% endif %}
+                {% if assertion.getAllAuthnStatements() %}
+                    {% for authnStatement in assertion.getAllAuthnStatements() %}
+                        {% if authnStatement.sessionIndex %}
+                            <p>SessionIndex: {{ authnStatement.sessionIndex  }}</p>
+                        {% endif %}
+                        {% if authnStatement.authnContext %}
+                            {% if authnStatement.authnContext.authnContextClassRef %}
+                                <p>AuthnContextClassRef: {{ authnStatement.authnContext.authnContextClassRef }}</p>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <hr/>
+        {% endif %}
+
+        <h1>Details & Raw data</h1>
+
+        <h2>Received Message</h2>
+        <textarea style="width: 99%; height: 400px">{{ receivedXML|raw }}</textarea>
+
+        {% if decryptedAssertions %}
+            <h2>Decrypted assertions</h2>
+            {% for xml in decryptedAssertions %}
+            <textarea style="width: 99%; height: 400px">{{ xml|raw }}</textarea>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

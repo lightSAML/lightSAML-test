@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ path('entity.list') }}" class="btn btn-primary pull-right mt-10"><i class="fa fa-list"></i> Entities</a>
+
+        <h1>Error occurred</h1>
+
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+
+        {% if code is defined and code %}
+            <textarea style="width: 99%; height: 400px">{{ code }}</textarea>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

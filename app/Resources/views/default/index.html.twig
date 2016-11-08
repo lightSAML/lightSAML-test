@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Welcome to LightSAML Test</h1>
+
+            <div class="row mt-30">
+                <nav class="col-md-3">
+                    <ul class="list-unstyled">
+                        <li><a href="{{ path('entity.list') }}" class="btn btn-warning btn-lg">Manage SAML parties</a></li>
+                        <li class="mt-30"><a href="">LightSAML.com</a></li>
+                    </ul>
+
+
+                </nav>
+
+                <div class="col-md-9">
+                    <div class="alert alert-success">
+                        LightSAML Test is a demo application built with <a href="https://www.lightsaml.com">LightSAML</a> library stack to demo it's functionality
+                        and allow testing with other SAML parties.
+                    </div>
+
+                    <p>All data provided to this application is persisted only temporary in the user session. Once the user session expires
+                        all data will be deleted.</p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+

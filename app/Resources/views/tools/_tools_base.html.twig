@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <nav class="col-md-3 col-xs-12">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="{{ path('tools.self_signed_certificate') }}">Self Signed Certificate</a></li>
+                <li><a href="{{ path('tools.fingerprint') }}">Certificate Fingerprint</a></li>
+                <li><a href="{{ path('tools.certificate_info') }}">Certificate Info</a></li>
+                <li><a href="{{ path('tools.sign_saml_message') }}">Sign SAML Message</a></li>
+                <li><a href="{{ path('tools.xsd_validation') }}">Validate with XSD schema</a></li>
+                <li><a href="{{ path('tools.build_idp_metadata') }}">Build IDP metadata</a></li>
+            </ul>
+        </nav>
+        <div class="col-md-9 col-xs-12">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

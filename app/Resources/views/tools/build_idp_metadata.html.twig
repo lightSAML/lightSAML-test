@@ -1,0 +1,57 @@
+{% extends "tools/_tools_base.html.twig" %}
+
+{% block content %}
+    <h1>Build IDP metadata</h1>
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.entity_id) }}
+            {% if form.sso is defined %}{{ form_row(form.sso) }}{% endif %}
+            {% if form.acs is defined %}{{ form_row(form.acs) }}{% endif %}
+            {{ form_row(form.slo) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.name_id_format) }}
+            {{ form_row(form.want_authn_requests_signed) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.x509_signing) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.x509_encryption) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.organization) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.technical_contact) }}
+            {{ form_row(form.support_contact) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.private_key) }}
+            {{ form_row(form.x509) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.password) }}
+        </div>
+    </div>
+
+    {{ form_widget(form) }}
+    <div class="clearfix"></div>
+    <button type="submit" class="btn btn-primary btn-lg mt-30"><i class="fa fa-cogs" aria-hidden="true"></i> Build</button>
+    {{ form_end(form) }}
+
+    <div class="clearfix mt-20"></div>
+
+    {% if xml %}
+        <h2>Generated Metadata XML</h2>
+        <textarea class="form-control" rows="33">{{ xml }}</textarea>
+    {% endif %}
+{% endblock %}

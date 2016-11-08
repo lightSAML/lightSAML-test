@@ -1,0 +1,24 @@
+{% extends "tools/_tools_base.html.twig" %}
+
+{% block content %}
+    <h1>Sign AuthnRequest</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-cogs" aria-hidden="true"></i> Sign</button>
+    {{ form_end(form) }}
+
+    <div class="clearfix mt-20"></div>
+
+    <h2>Signed AuthnRequest XML</h2>
+    {% if signatureAlgorithm %}
+    <div class="form-group">
+        <label>Signature Algorithm <small>(based on provided X509 Certificate)</small>:</label>
+        {{ signatureAlgorithm }}
+    </div>
+    {% endif %}
+    <div class="form-group">
+        <textarea class="form-control" rows="33">{{ xml }}</textarea>
+    </div>
+
+{% endblock %}

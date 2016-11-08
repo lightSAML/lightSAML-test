@@ -1,0 +1,28 @@
+{% extends "tools/_tools_base.html.twig" %}
+
+{% block content %}
+    <h1>Self Signed Certificates</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-cogs" aria-hidden="true"></i> Generate</button>
+    {{ form_end(form) }}
+
+    <div class="clearfix mt-20"></div>
+
+    <h2>Private key</h2>
+    <div class="form-group">
+        <textarea class="form-control" rows="11">{{ privateKey }}</textarea>
+    </div>
+
+    <h2>X509 Certificate</h2>
+    <div class="form-group">
+        <textarea class="form-control" rows="11">{{ x509 }}</textarea>
+    </div>
+
+    <h2>CSR</h2>
+    <div class="form-group">
+        <textarea class="form-control" rows="11">{{ csr }}</textarea>
+    </div>
+
+{% endblock %}

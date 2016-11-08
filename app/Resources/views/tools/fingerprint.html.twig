@@ -1,0 +1,23 @@
+{% extends "tools/_tools_base.html.twig" %}
+
+{% block content %}
+    <h1>Self Signed Certificates</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-cogs" aria-hidden="true"></i> Calculate</button>
+    {{ form_end(form) }}
+
+    <div class="clearfix mt-20"></div>
+
+    <h2>Calculated fingerprint</h2>
+    <div class="form-group">
+        <input type="text" class="form-control" value="{{ fingerprint }}"/>
+    </div>
+
+    <h2>Formatted fingerprint</h2>
+    <div class="form-group">
+        <input type="text" class="form-control" value="{{ formatted }}"/>
+    </div>
+
+{% endblock %}

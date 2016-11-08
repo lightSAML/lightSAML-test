@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+        <a href="{{ path('homepage') }}" class="btn btn-primary pull-right mt-10"><i class="fa fa-angle-double-left"></i> Back</a>
+
+            <h1>{{ ed.entityId }}</h1>
+
+            <h2>IDP</h2>
+            <ul>
+                {% for item in ed.allIdpSsoDescriptors %}
+                    <li>
+                        <b>Single SignOn Services</b>
+                        <ul>
+                            {% for sso in item.allSingleSignOnServices %}
+                                <li>
+                                    Location: {{ sso.location }}<br/>
+                                    Binding: {{ sso.binding }}
+                                </li>
+                            {% else %}
+                                <li>none</li>
+                            {% endfor %}
+                        </ul>
+
+                        <b>Single Logout Services</b>
+                        <ul>
+                            {% for slo in item.allSingleLogoutServices %}
+                                <li>
+                                    Location: {{ slo.location }}<br/>
+                                    Binding: {{ slo.binding }}
+                                </li>
+                            {% else %}
+                                <li>none</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li>This entity has no IDP descriptors</li>
+                {% endfor %}
+            </ul>
+
+            <h2>SP</h2>
+            <ul>
+                {% for item in ed.allSpSsoDescriptors %}
+                    <li>
+                        <b>Assertion Consumer Services</b>
+                        <ul>
+                            {% for acs in item.allAssertionConsumerServices %}
+                                <li>
+                                    Location: {{ acs.location }}<br/>
+                                    Binding: {{ acs.binding }}
+                                </li>
+                            {% else %}
+                                <li>none</li>
+                            {% endfor %}
+                        </ul>
+
+                        <b>Single Logout Services</b>
+                        <ul>
+                            {% for slo in item.allSingleLogoutServices %}
+                                <li>
+                                    Location: {{ slo.location }}<br/>
+                                    Binding: {{ slo.binding }}
+                                </li>
+                            {% else %}
+                                <li>none</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li>This entity has no IDP descriptors</li>
+                {% endfor %}
+            </ul>
+
+            {{ form_start(form) }}
+                <a href="{{ path('entity.raw', {entityId: ed.entityId}) }}" class="btn btn-primary"><i class="fa fa-file-code-o" aria-hidden="true"></i> View raw</a>
+                <button type="submit" class="btn btn-danger ml-30"><i class="fa fa-trash"></i> Delete</button>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+{% endblock %}
+
