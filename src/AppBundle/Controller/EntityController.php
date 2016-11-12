@@ -36,9 +36,12 @@ class EntityController extends Controller
     public function listAction()
     {
         $entities = $this->get('store.entities')->all();
+        $ssoState = $this->get('lightsaml.store.sso_state')->get();
 
         return [
             'entities' => $entities,
+            'ssoState' => $ssoState,
+            'ownEntityId' => $this->get('lightsaml.own.entity_descriptor_provider')->get()->getEntityID(),
         ];
     }
 

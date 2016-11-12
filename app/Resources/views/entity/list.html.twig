@@ -58,6 +58,24 @@
 
             <a href="{{ path('entity.new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new</a>
 
+
+            {% if ssoState.ssoSessions %}
+            <div class="clearfix"></div>
+            <h2 class="mt-50">Established SSO sessions</h2>
+
+            {% for ssoSession in ssoState.ssoSessions %}
+                <div style="border-bottom: solid #e0e0e0 1px;">
+                    EntityID: {{ ssoSession.idpEntityId == ownEntityId ? ssoSession.spEntityId : ssoSession.idpEntityId }}
+                    <br/>
+                    NameID: {{ ssoSession.nameId }}
+                    <br/>
+                    NameID Format: {{ ssoSession.nameIdFormat }}
+                    <br/>
+                    Session Index: {{ ssoSession.sessionIndex }}
+                </div>
+            {% endfor %}
+
+            {% endif %}
         </div>
     </div>
 {% endblock %}
