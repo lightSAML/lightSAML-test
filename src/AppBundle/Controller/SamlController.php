@@ -22,6 +22,7 @@ use LightSaml\Event\Events;
 use LightSaml\Idp\Builder\Action\Profile\SingleSignOn\Idp\SsoIdpAssertionActionBuilder;
 use LightSaml\Idp\Builder\Profile\WebBrowserSso\Idp\SsoIdpReceiveAuthnRequestProfileBuilder;
 use LightSaml\Idp\Builder\Profile\WebBrowserSso\Idp\SsoIdpSendResponseProfileBuilder;
+use LightSaml\Logout\Builder\Profile\WebBrowserSlo\SloRequestProfileBuilder;
 use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Assertion\Attribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -246,6 +247,27 @@ class SamlController extends Controller
             'authnRequest' => $message,
             'spEntityId' => $spEntityId,
         ];
+    }
+
+    /**
+     * @Route("/logout/start/{key}", name="saml.send_logout_request")
+     */
+    public function startLogoutAction($key)
+    {
+        $ssoState = $this->get('lightsaml.store.sso_state')->get();
+        $sessions = $ssoState->getSsoSessions();
+        $ssoSession = $sessions[$key];
+
+        $container = $this->get('lightsaml.container.build');
+        $profile = new SloRequestProfileBuilder($container);
+        $context = $profile->buildContext();
+        $action = $profile->buildAction();
+
+        $context->getLogoutContext()->setSsoSessionState($ssoSession);
+
+        $action->execute($context);
+
+        return $context->getHttpResponseContext()->getResponse();
     }
 
     private function getClaims()

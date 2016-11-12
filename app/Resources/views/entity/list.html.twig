@@ -43,7 +43,7 @@
                                 </a>
                             {% endif %}
                             {% if hasSpSso %}
-                                <a href="{{ path('saml.send_response', {spEntityId: ed.entityId}) }}" class="btn btn-primary btn-sm" title="IDP initiated SSO">
+                                <a href="{{ path('saml.send_response', {spEntityId: ed.entityId}) }}" class="btn btn-primary btn-sm" title="Send Response to SP (IDP initiated SSO)">
                                     <i class="fa fa-play" aria-hidden="true"></i>
                                 </a>
                             {% endif %}
@@ -60,20 +60,36 @@
 
 
             {% if ssoState.ssoSessions %}
-            <div class="clearfix"></div>
-            <h2 class="mt-50">Established SSO sessions</h2>
+                <div class="clearfix"></div>
+                <h2 class="mt-50">Established SSO sessions</h2>
 
-            {% for ssoSession in ssoState.ssoSessions %}
-                <div style="border-bottom: solid #e0e0e0 1px;">
-                    EntityID: {{ ssoSession.idpEntityId == ownEntityId ? ssoSession.spEntityId : ssoSession.idpEntityId }}
-                    <br/>
-                    NameID: {{ ssoSession.nameId }}
-                    <br/>
-                    NameID Format: {{ ssoSession.nameIdFormat }}
-                    <br/>
-                    Session Index: {{ ssoSession.sessionIndex }}
-                </div>
-            {% endfor %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>NameID</th>
+                            <th>Details</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for key,ssoSession in ssoState.ssoSessions %}
+                        <tr>
+                            <td>
+                                {{ ssoSession.getOtherPartyId(ownEntityId) }}
+                            </td>
+                            <td>
+                                <span title="NameID">{{ ssoSession.nameId }}</span>
+                                <span title="NameID Format">{{ ssoSession.nameIdFormat }}</span>
+                                <br/>
+                                <span title="Session Index">{{ ssoSession.sessionIndex }}</span>
+                            </td>
+                            <td>
+                                <a href="{{ path('saml.send_logout_request', {key: key}) }}" class="btn btn-primary btn-sm" title="Logout"><i class="fa fa-sign-out"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
             {% endif %}
         </div>

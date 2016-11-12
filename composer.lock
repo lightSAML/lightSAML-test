@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "42212dda365e67cffb8362680bfd6945",
-    "content-hash": "ee041b0b4837c62dc9fbc7532fb2fa73",
+    "hash": "05d021e6611b8d2bcd929115f7843c2b",
+    "content-hash": "2c40c267927006bbd9464e7fe646e379",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1192,6 +1192,43 @@
             ],
             "description": "Light SAML2 IDP php library",
             "time": "2016-11-08 13:07:08"
+        },
+        {
+            "name": "lightsaml/lightsaml-logout",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lightSAML/lightSAML-logout.git",
+                "reference": "e7b047d6002cb81fd40c9fadc0ea342b389babd8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lightSAML/lightSAML-logout/zipball/e7b047d6002cb81fd40c9fadc0ea342b389babd8",
+                "reference": "e7b047d6002cb81fd40c9fadc0ea342b389babd8",
+                "shasum": ""
+            },
+            "require": {
+                "lightsaml/lightsaml": "*",
+                "php": ">=5.5.1"
+            },
+            "require-dev": {
+                "monolog/monolog": "~1.3",
+                "phpunit/phpunit": "~4.5",
+                "satooshi/php-coveralls": "~0.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LightSaml\\Logout\\Tests\\": "tests/",
+                    "LightSaml\\Logout\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "description": "Light SAML2 logout php library",
+            "time": "2016-05-19 12:14:22"
         },
         {
             "name": "lightsaml/symfony-bridge",
@@ -3522,7 +3559,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "lightsaml/symfony-bridge-idp": 20
+        "lightsaml/symfony-bridge-idp": 20,
+        "lightsaml/lightsaml-logout": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

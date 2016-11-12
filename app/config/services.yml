@@ -12,3 +12,8 @@ services:
         class: LightSaml\Store\TrustOptions\StaticTrustOptionsStore
         tags:
             - { name: lightsaml.trust_options_store }
+
+    lightsaml.service.logout_resolver:
+        class: LightSaml\Logout\Resolver\Logout\LogoutSessionResolver
+        arguments:
+            - "@lightsaml.store.sso_state"

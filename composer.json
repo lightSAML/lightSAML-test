@@ -35,6 +35,7 @@
         "lightsaml/symfony-bridge": "^1.0.3",
         "lightsaml/lightsaml-idp": "^1.0.0",
         "lightsaml/symfony-bridge-idp": "dev-master",
+        "lightsaml/lightsaml-logout": "dev-master",
 
         "jms/di-extra-bundle": "^1.8"
     },
