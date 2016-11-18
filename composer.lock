@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "05d021e6611b8d2bcd929115f7843c2b",
-    "content-hash": "2c40c267927006bbd9464e7fe646e379",
+    "hash": "2eb603b720d9381c5a6e728f470f785b",
+    "content-hash": "8805c86aa97c38f682be5a28a13da559",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1097,16 +1097,16 @@
         },
         {
             "name": "lightsaml/lightsaml",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lightSAML/lightSAML.git",
-                "reference": "1ac26c63bee6b0ec82b4f57cabdad88df2bb293d"
+                "reference": "3f3b93325e1bffc15021c1250b43f2053c42b0d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lightSAML/lightSAML/zipball/1ac26c63bee6b0ec82b4f57cabdad88df2bb293d",
-                "reference": "1ac26c63bee6b0ec82b4f57cabdad88df2bb293d",
+                "url": "https://api.github.com/repos/lightSAML/lightSAML/zipball/3f3b93325e1bffc15021c1250b43f2053c42b0d2",
+                "reference": "3f3b93325e1bffc15021c1250b43f2053c42b0d2",
                 "shasum": ""
             },
             "require": {
@@ -1156,28 +1156,29 @@
                 "lightSAML",
                 "php"
             ],
-            "time": "2016-11-08 11:22:28"
+            "time": "2016-11-18 08:30:01"
         },
         {
             "name": "lightsaml/lightsaml-idp",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lightSAML/lightSAML-IDP.git",
-                "reference": "2fb7eacdd4fe225e85d27b93888871f7d2213a92"
+                "reference": "2c89277268593c0abfee9318d132d9767467be4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lightSAML/lightSAML-IDP/zipball/2fb7eacdd4fe225e85d27b93888871f7d2213a92",
-                "reference": "2fb7eacdd4fe225e85d27b93888871f7d2213a92",
+                "url": "https://api.github.com/repos/lightSAML/lightSAML-IDP/zipball/2c89277268593c0abfee9318d132d9767467be4f",
+                "reference": "2c89277268593c0abfee9318d132d9767467be4f",
                 "shasum": ""
             },
             "require": {
-                "lightsaml/lightsaml": "~1.1.4",
+                "lightsaml/lightsaml": "^1.1",
                 "php": ">=5.5.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.8"
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~0.6"
             },
             "type": "library",
             "autoload": {
@@ -1191,7 +1192,7 @@
                 "GPL-3.0+"
             ],
             "description": "Light SAML2 IDP php library",
-            "time": "2016-11-08 13:07:08"
+            "time": "2016-11-18 15:07:59"
         },
         {
             "name": "lightsaml/lightsaml-logout",
@@ -1199,12 +1200,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lightSAML/lightSAML-logout.git",
-                "reference": "e7b047d6002cb81fd40c9fadc0ea342b389babd8"
+                "reference": "512289b4e3342327c54496474f212e79dc4aed19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lightSAML/lightSAML-logout/zipball/e7b047d6002cb81fd40c9fadc0ea342b389babd8",
-                "reference": "e7b047d6002cb81fd40c9fadc0ea342b389babd8",
+                "url": "https://api.github.com/repos/lightSAML/lightSAML-logout/zipball/512289b4e3342327c54496474f212e79dc4aed19",
+                "reference": "512289b4e3342327c54496474f212e79dc4aed19",
                 "shasum": ""
             },
             "require": {
@@ -1228,24 +1229,24 @@
                 "GPL-3.0+"
             ],
             "description": "Light SAML2 logout php library",
-            "time": "2016-05-19 12:14:22"
+            "time": "2016-11-17 15:18:02"
         },
         {
             "name": "lightsaml/symfony-bridge",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lightSAML/SymfonyBridgeBundle.git",
-                "reference": "f4f71b4bd87e0fa22c06b8428e209ffcedc801f2"
+                "reference": "01ad843a0bafc5268bda65e49a9be3c0c57e2381"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lightSAML/SymfonyBridgeBundle/zipball/f4f71b4bd87e0fa22c06b8428e209ffcedc801f2",
-                "reference": "f4f71b4bd87e0fa22c06b8428e209ffcedc801f2",
+                "url": "https://api.github.com/repos/lightSAML/SymfonyBridgeBundle/zipball/01ad843a0bafc5268bda65e49a9be3c0c57e2381",
+                "reference": "01ad843a0bafc5268bda65e49a9be3c0c57e2381",
                 "shasum": ""
             },
             "require": {
-                "lightsaml/lightsaml": "^1.1.0",
+                "lightsaml/lightsaml": "~1.1",
                 "php": ">=5.5.1",
                 "symfony/dependency-injection": "~2.3|~3.0",
                 "symfony/framework-bundle": "~2.3|~3.0",
@@ -1279,7 +1280,7 @@
             ],
             "description": "Light SAML Symfony bridge bundle",
             "homepage": "http://www.lightsaml.com",
-            "time": "2016-10-27 11:34:10"
+            "time": "2016-11-18 15:11:05"
         },
         {
             "name": "lightsaml/symfony-bridge-idp",
@@ -1441,6 +1442,52 @@
                 "random"
             ],
             "time": "2016-11-07 23:38:38"
+        },
+        {
+            "name": "pimple/pimple",
+            "version": "v3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "a30f7d6e57565a2e1a316e1baf2a483f788b258a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/a30f7d6e57565a2e1a316e1baf2a483f788b258a",
+                "reference": "a30f7d6e57565a2e1a316e1baf2a483f788b258a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple, a simple Dependency Injection Container",
+            "homepage": "http://pimple.sensiolabs.org",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2015-09-11 15:10:35"
         },
         {
             "name": "psr/cache",

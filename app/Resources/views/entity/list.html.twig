@@ -59,39 +59,46 @@
             <a href="{{ path('entity.new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new</a>
 
 
-            {% if ssoState.ssoSessions %}
-                <div class="clearfix"></div>
-                <h2 class="mt-50">Established SSO sessions</h2>
+            <div class="clearfix"></div>
+            <h2 class="mt-50">Established SSO sessions</h2>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>NameID</th>
-                            <th>Details</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for key,ssoSession in ssoState.ssoSessions %}
-                        <tr>
-                            <td>
-                                {{ ssoSession.getOtherPartyId(ownEntityId) }}
-                            </td>
-                            <td>
-                                <span title="NameID">{{ ssoSession.nameId }}</span>
-                                <span title="NameID Format">{{ ssoSession.nameIdFormat }}</span>
-                                <br/>
-                                <span title="Session Index">{{ ssoSession.sessionIndex }}</span>
-                            </td>
-                            <td>
-                                <a href="{{ path('saml.send_logout_request', {key: key}) }}" class="btn btn-primary btn-sm" title="Logout"><i class="fa fa-sign-out"></i></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>NameID</th>
+                        <th>Details</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for key,ssoSession in ssoState.ssoSessions %}
+                    <tr>
+                        <td>
+                            {{ ssoSession.getOtherPartyId(ownEntityId) }}
+                        </td>
+                        <td>
+                            <span title="NameID">{{ ssoSession.nameId }}</span>
+                            <span title="NameID Format">{{ ssoSession.nameIdFormat }}</span>
+                            <br/>
+                            <span title="Session Index">{{ ssoSession.sessionIndex }}</span>
+                        </td>
+                        <td>
+                            <a href="{{ path('saml.logout.send', {key: key}) }}" class="btn btn-primary btn-sm" title="Logout"><i class="fa fa-sign-out"></i></a>
+                            <a href="{{ path('saml.sso_session.remove', {key: key}) }}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <div class="alert alert-info">
+                                You have no SSO sessions established yet
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-            {% endif %}
         </div>
     </div>
 {% endblock %}

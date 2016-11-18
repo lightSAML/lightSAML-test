@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{ path('entity.list') }}" class="btn btn-primary pull-right mt-10"><i class="fa fa-list"></i> Entities</a>
+
+
+        <h1>Received SAML Logout Response summary</h1>
+
+        <p>
+            Status:
+            {% if samlResponse.status.statusCode.value == 'urn:oasis:names:tc:SAML:2.0:status:Success' %}
+                <i class="fa fa-check text-success" title="Success"></i>
+            {% else %}
+                <i class="fa fa-times text-danger" title="Error"></i>
+            {% endif %}
+            {{ samlResponse.status.statusCode.value }}
+            {{ samlResponse.status.statusMessage }}
+        </p>
+        <p>
+            Issuer: {{ samlResponse.issuer.value }}
+            <a href="{{ path('entity.view', {entityId: samlResponse.issuer.value}) }}" title="View party details"><i class="fa fa-eye"></i></a>
+        </p>
+        <p>
+            Signature:
+            {% if samlResponse.signature %}
+                <i class="fa fa-check text-success"></i>
+            {% else %}
+                <i class="fa fa-times text-danger"></i> NOT SIGNED
+            {% endif %}
+        </p>
+
+        <h2>Details</h2>
+
+        <textarea style="width: 99%; height: 400px">{{ xml|raw }}</textarea>
+    </div>
+</div>
+
+{% endblock %}

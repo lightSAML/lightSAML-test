@@ -18,6 +18,7 @@ use LightSaml\Model\Metadata\AssertionConsumerService;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Metadata\IdpSsoDescriptor;
 use LightSaml\Model\Metadata\KeyDescriptor;
+use LightSaml\Model\Metadata\SingleLogoutService;
 use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface;
@@ -67,6 +68,8 @@ class OwnEntityDescriptorProvider implements EntityDescriptorProviderInterface
 
         $sp = new SpSsoDescriptor();
         $sp->addAssertionConsumerService(new AssertionConsumerService($this->router->generate('saml.receive_response', [], RouterInterface::ABSOLUTE_URL), SamlConstants::BINDING_SAML2_HTTP_POST));
+        $sp->addSingleLogoutService(new SingleLogoutService($this->router->generate('saml.logout.receive', [], RouterInterface::ABSOLUTE_URL), SamlConstants::BINDING_SAML2_HTTP_REDIRECT));
+        $sp->addSingleLogoutService(new SingleLogoutService($this->router->generate('saml.logout.receive', [], RouterInterface::ABSOLUTE_URL), SamlConstants::BINDING_SAML2_HTTP_POST));
         foreach ($ownCredentials as $credential) {
             if ($credential instanceof X509Credential) {
                 $kd = new KeyDescriptor(UsageType::SIGNING, $credential->getCertificate());
@@ -80,6 +83,8 @@ class OwnEntityDescriptorProvider implements EntityDescriptorProviderInterface
         $idp = new IdpSsoDescriptor();
         $idp->addSingleSignOnService(new SingleSignOnService($this->router->generate('saml.receive_authn_request', [], RouterInterface::ABSOLUTE_URL), SamlConstants::BINDING_SAML2_HTTP_POST));
         $idp->addSingleSignOnService(new SingleSignOnService($this->router->generate('saml.receive_authn_request', [], RouterInterface::ABSOLUTE_URL), SamlConstants::BINDING_SAML2_HTTP_REDIRECT));
+        $idp->addSingleLogoutService(new SingleLogoutService($this->router->generate('saml.logout.receive', [], RouterInterface::ABSOLUTE_URL), SamlConstants::BINDING_SAML2_HTTP_REDIRECT));
+        $idp->addSingleLogoutService(new SingleLogoutService($this->router->generate('saml.logout.receive', [], RouterInterface::ABSOLUTE_URL), SamlConstants::BINDING_SAML2_HTTP_POST));
         foreach ($ownCredentials as $credential) {
             if ($credential instanceof X509Credential) {
                 $kd = new KeyDescriptor(UsageType::SIGNING, $credential->getCertificate());

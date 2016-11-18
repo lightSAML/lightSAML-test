@@ -31,13 +31,14 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
 
-        "lightsaml/lightsaml": "^1.1.4",
-        "lightsaml/symfony-bridge": "^1.0.3",
-        "lightsaml/lightsaml-idp": "^1.0.0",
+        "lightsaml/lightsaml": "^1.2",
+        "lightsaml/symfony-bridge": "^1.0",
+        "lightsaml/lightsaml-idp": "^1.0",
         "lightsaml/symfony-bridge-idp": "dev-master",
         "lightsaml/lightsaml-logout": "dev-master",
 
-        "jms/di-extra-bundle": "^1.8"
+        "jms/di-extra-bundle": "^1.8",
+        "pimple/pimple": "^3.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

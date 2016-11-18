@@ -23,6 +23,7 @@ use LightSaml\Idp\Builder\Action\Profile\SingleSignOn\Idp\SsoIdpAssertionActionB
 use LightSaml\Idp\Builder\Profile\WebBrowserSso\Idp\SsoIdpReceiveAuthnRequestProfileBuilder;
 use LightSaml\Idp\Builder\Profile\WebBrowserSso\Idp\SsoIdpSendResponseProfileBuilder;
 use LightSaml\Logout\Builder\Profile\WebBrowserSlo\SloRequestProfileBuilder;
+use LightSaml\Logout\Builder\Profile\WebBrowserSlo\SloResponseProfileBuilder;
 use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Assertion\Attribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -250,9 +251,9 @@ class SamlController extends Controller
     }
 
     /**
-     * @Route("/logout/start/{key}", name="saml.send_logout_request")
+     * @Route("/logout/send/{key}", name="saml.logout.send")
      */
-    public function startLogoutAction($key)
+    public function logoutSendAction($key)
     {
         $ssoState = $this->get('lightsaml.store.sso_state')->get();
         $sessions = $ssoState->getSsoSessions();
@@ -268,6 +269,44 @@ class SamlController extends Controller
         $action->execute($context);
 
         return $context->getHttpResponseContext()->getResponse();
+    }
+
+    /**
+     * @Route("/logout/receive", name="saml.logout.receive")
+     * @Template("saml/receiveLogoutResponse.html.twig")
+     */
+    public function logoutReceiveAction()
+    {
+        $xml = '';
+        $container = $this->get('lightsaml.container.build');
+        $profile = new SloResponseProfileBuilder($container);
+        $context = $profile->buildContext();
+        $action = $profile->buildAction();
+
+        $container->getSystemContainer()->getEventDispatcher()->addListener(Events::BINDING_MESSAGE_RECEIVED, function (GenericEvent $event) use (&$xml) {
+            $xml = $event->getSubject();
+        });
+
+        $action->execute($context);
+
+        return [
+            'samlResponse' => $context->getInboundMessage(),
+            'xml' => $xml,
+        ];
+    }
+
+    /**
+     * @Route("/sso-session/remove/{key}", name="saml.sso_session.remove")
+     */
+    public function ssoSessionRemove($key)
+    {
+        $ssoState = $this->get('lightsaml.store.sso_state')->get();
+        $sessions = $ssoState->getSsoSessions();
+        unset($sessions[$key]);
+        $ssoState->setSsoSessions($sessions);
+        $this->get('lightsaml.store.sso_state')->set($ssoState);
+
+        return $this->redirectToRoute('entity.list');
     }
 
     private function getClaims()
