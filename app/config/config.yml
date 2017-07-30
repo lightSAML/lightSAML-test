@@ -79,11 +79,11 @@ jms_di_extra:
 
 light_saml_symfony_bridge:
     own:
-        entity_id: http://lightsaml.com/test
+        entity_id: %own_entity_id%
         entity_descriptor_provider:
             id: own_entity_descriptor_provider
         credentials:
             -
-                certificate: "%kernel.root_dir%/Resources/saml.crt"
-                key: "%kernel.root_dir%/Resources/saml.key"
-                password: ""
+                certificate: %own_certificate%
+                key: %own_key%
+                password: %own_password%
