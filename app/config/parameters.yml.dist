@@ -17,3 +17,8 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    own_entity_id: https://test.lightsaml.com
+    own_certificate: app/Resources/saml.crt
+    own_key: app/Resources/saml.key
+    own_password:

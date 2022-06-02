@@ -1,0 +1,15 @@
+version: "3.5"
+
+services:
+  php:
+    build: docker/php
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
+    command: ["/bin/sleep", "3650d"]
+    working_dir: /app
+    environment:
+      XDEBUG_SESSION: phpstorm
+      XDEBUG_CONFIG: client_host=host.docker.internal start_with_request=yes
+      SHELL_VERBOSITY: 2
