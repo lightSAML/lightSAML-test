@@ -17,7 +17,7 @@
         }
     },
     "require": {
-        "php": ">=7.3.24",
+        "php": ">=7.4.25",
         "ext-openssl": "*",
         "ext-mcrypt": "*",
         "symfony/symfony": "3.1.*",
